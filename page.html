@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ваша страница</title>
+</head>
+<body>
+
+    <h1>Ваши записи</h1>
+    <hr>
+    <!-- Здесь будет отображаться весь текст -->
+    <pre id="content" style="white-space: pre-wrap; word-wrap: break-word;"></pre>
+    <hr>
+
+    <div>
+        <h2>Добавить новую запись</h2>
+        <textarea id="newText" style="width: 500px; height: 150px;"></textarea>
+        <br><br>
+        <button onclick="addNewEntry()">Добавить и получить НОВУЮ ссылку</button>
+    </div>
+
+    <div id="new-link-container" style="display:none;">
+         <h3>ВАЖНО! Ваша обновленная ссылка:</h3>
+         <p>Старая ссылка всё ещё работает, но на ней нет этой новой записи. <strong>Используйте эту новую ссылку</strong>, чтобы видеть все записи и добавлять следующие.</p>
+         <input type="text" id="new-url" readonly style="width: 500px;">
+    </div>
+
+    <script>
+        // Специальный символ-разделитель, который вряд ли кто-то введет сам
+        const SEPARATOR = '|||';
+        const urlParams = new URLSearchParams(window.location.search);
+        // Получаем закодированные данные из текущей ссылки
+        const encodedData = urlParams.get('data');
+
+        // Эта функция выполняется при загрузке страницы
+        window.onload = function() {
+            const contentDiv = document.getElementById('content');
+            
+            if (!encodedData) {
+                contentDiv.textContent = "На этой странице пока нет записей. Создайте первую запись на главной странице.";
+                return;
+            }
+
+            try {
+                // Декодируем текст из ссылки
+                const decodedText = decodeURIComponent(escape(atob(encodedData)));
+                // Разделяем текст на отдельные записи
+                const texts = decodedText.split(SEPARATOR);
+                
+                // Отображаем все записи с переносами строк
+                contentDiv.textContent = texts.join('\n\n---\n\n');
+                
+            } catch (e) {
+                contentDiv.textContent = "Не удалось загрузить содержимое. Ссылка повреждена.";
+            }
+        };
+
+        // Эта функция выполняется при нажатии на кнопку "Добавить"
+        function addNewEntry() {
+            const newText = document.getElementById('newText').value;
+            if (newText.trim() === '') {
+                alert('Пожалуйста, введите текст.');
+                return;
+            }
+
+            // Получаем старые данные из URL и декодируем их
+            let oldDecodedText = '';
+            if (encodedData) {
+                oldDecodedText = decodeURIComponent(escape(atob(encodedData)));
+            }
+            
+            // Соединяем старый текст и новый через разделитель
+            const combinedText = oldDecodedText ? `${oldDecodedText}${SEPARATOR}${newText}` : newText;
+            
+            // Кодируем ОБЩИЙ текст обратно
+            const newEncodedData = btoa(unescape(encodeURIComponent(combinedText)));
+
+            // Собираем новую ссылку
+            const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+            const finalNewUrl = `${baseUrl}?data=${newEncodedData}`;
+            
+            // Показываем новую ссылку пользователю
+            document.getElementById('new-url').value = finalNewUrl;
+            document.getElementById('new-link-container').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
