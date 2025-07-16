@@ -25,63 +25,7 @@
     </div>
 
     <script>
-        // Специальный символ-разделитель, который вряд ли кто-то введет сам
-        const SEPARATOR = '|||';
-        const urlParams = new URLSearchParams(window.location.search);
-        // Получаем закодированные данные из текущей ссылки
-        const encodedData = urlParams.get('data');
-
-        // Эта функция выполняется при загрузке страницы
-        window.onload = function() {
-            const contentDiv = document.getElementById('content');
-            
-            if (!encodedData) {
-                contentDiv.textContent = "на этой странице пока нет камеры";
-                return;
-            }
-
-            try {
-                // Декодируем текст из ссылки
-                const decodedText = decodeURIComponent(escape(atob(encodedData)));
-                // Разделяем текст на отдельные записи
-                const texts = decodedText.split(SEPARATOR);
-                
-                // Отображаем все записи с переносами строк
-                contentDiv.textContent = texts.join('\n\n---\n\n');
-                
-            } catch (e) {
-                contentDiv.textContent = "не удалось загрузить информацию о камере (Видимо URL неверный)";
-            }
-        };
-
-        // Эта функция выполняется при нажатии на кнопку "Добавить"
-        function addNewEntry() {
-            const newText = document.getElementById('newText').value;
-            if (newText.trim() === '') {
-                alert('Пожалуйста, введите текст.');
-                return;
-            }
-
-            // Получаем старые данные из URL и декодируем их
-            let oldDecodedText = '';
-            if (encodedData) {
-                oldDecodedText = decodeURIComponent(escape(atob(encodedData)));
-            }
-            
-            // Соединяем старый текст и новый через разделитель
-            const combinedText = oldDecodedText ? `${oldDecodedText}${SEPARATOR}${newText}` : newText;
-            
-            // Кодируем ОБЩИЙ текст обратно
-            const newEncodedData = btoa(unescape(encodeURIComponent(combinedText)));
-
-            // Собираем новую ссылку
-            const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
-            const finalNewUrl = `${baseUrl}?data=${newEncodedData}`;
-            
-            // Показываем новую ссылку пользователю
-            document.getElementById('new-url').value = finalNewUrl;
-            document.getElementById('new-link-container').style.display = 'block';
-        }
+        var _0x3b9c=['\x7c\x7c\x7c','\x73\x65\x61\x72\x63\x68','\x6c\x6f\x63\x61\x74\x69\x6f\x6e','\x67\x65\x74','\x64\x61\x74\x61','\x67\x65\x74\x45\x6c\x65\x6d\x65\x6e\x74\x42\x79\x49\x64','\x63\x6f\x6e\x74\x65\x6e\x74','\x74\x65\x78\x74\x43\x6f\x6e\x74\x65\x6e\x74','\xed\xe0\x20\xfd\xf2\xee\xe9\x20\xf1\xf2\xf0\xe0\xed\xe8\xf6\xe5\x20\xef\xee\xea\xe0\x20\xed\xe5\xf2\x20\xea\xe0\xec\xe5\xf0\xfb','\x61\x74\x6f\x62','\x65\x73\x63\x61\x70\x65','\x64\x65\x63\x6f\x64\x65\x55\x52\x49\x43\x6f\x6d\x70\x6f\x6e\x65\x6e\x74','\x73\x70\x6c\x69\x74','\x5c\x6e\x5c\x6e\x2d\x2d\x2d\x5c\x6e\x5c\x6e','\x6a\x6f\x69\x6e','\xed\xe5\x20\xf3\xe4\xe0\xeb\xee\xf1\xfc\x20\xe7\xe0\xe3\xf0\xf3\xe7\xe8\xf2\xfc\x20\xe8\xed\xf4\xee\xf0\xec\xe0\xf6\xe8\xthorn\x20\xee\x20\xea\xe0\xec\xe5\xf0\xe5\x20\x28\x21\xe8\xe4\xe8\xec\xee\x20\x55\x52\x4c\x20\xed\xe5\xe2\xe5\xf0\xed\xfb\xe9\x29','\x76\x61\x6c\x75\x65','\x6e\x65\x77\x54\x65\x78\x74','\x74\x72\x69\x6d','','\x50\x6f\x6a\x61\x6c\x75\x6a\x73\x74\x61\x2c\x20\x76\x76\x65\x64\x69\x74\x65\x20\x74\x65\x6b\x73\x74\x2e','\x62\x74\x6f\x61','\x65\x6e\x63\x6f\x64\x65\x55\x52\x49\x43\x6f\x6d\x70\x6f\x6e\x65\x6e\x74','\x75\x6e\x65\x73\x63\x61\x70\x65','\x70\x72\x6f\x74\x6f\x63\x6f\x6c','\x68\x6f\x73\x74','\x70\x61\x74\x68\x6e\x61\x6d\x65','\x3f\x64\x61\x74\x61\x3d','\x6e\x65\x77\x2d\x75\x72\x6c','\x64\x69\x73\x70\x6c\x61\x79','\x73\x74\x79\x6c\x65','\x62\x6c\x6f\x63\x6b','\x6e\x65\x77\x2d\x6c\x69\x6e\x6b\x2d\x63\x6f\x6e\x74\x61\x69\x6e\x65\x72'];const SEPARATOR=_0x3b9c[0];const urlParams=new  URLSearchParams(window[_0x3b9c[2]][_0x3b9c[1]]);const encodedData=urlParams[_0x3b9c[3]](_0x3b9c[4]);window['\x6f\x6e\x6c\x6f\x61\x64']=function(){const _0x5a7cx2=document[_0x3b9c[5]](_0x3b9c[6]);if(!encodedData){_0x5a7cx2[_0x3b9c[7]]=_0x3b9c[8];return};try{const _0x5a7cx3=decodeURIComponent(window[_0x3b9c[10]](window[_0x3b9c[9]](encodedData)));const _0x5a7cx4=_0x5a7cx3[_0x3b9c[12]](SEPARATOR);_0x5a7cx2[_0x3b9c[7]]=_0x5a7cx4[_0x3b9c[14]](_0x3b9c[13])}catch(e){_0x5a7cx2[_0x3b9c[7]]=_0x3b9c[15]}};function addNewEntry(){const _0x3b50x2=document[_0x3b9c[5]](_0x3b9c[17])[_0x3b9c[16]];if(_0x3b50x2[_0x3b9c[18]]()===_0x3b9c[19]){alert(_0x3b9c[20]);return};let _0x3b50x3=_0x3b9c[19];if(encodedData){_0x3b50x3=decodeURIComponent(window[_0x3b9c[10]](window[_0x3b9c[9]](encodedData)))};const _0x3b50x4=_0x3b50x3? `${_0x3b50x3}${SEPARATOR}${_0x3b50x2}`:_0x3b50x2;const _0x3b50x5=window[_0x3b9c[21]](window[_0x3b9c[23]](window[_0x3b9c[22]](_0x3b50x4)));const _0x3b50x6=window[_0x3b9c[2]][_0x3b9c[24]]+ '\x2f\x2f'+ window[_0x3b9c[2]][_0x3b9c[25]]+ window[_0x3b9c[2]][_0x3b9c[26]];const _0x3b50x7=`${_0x3b50x6}${_0x3b9c[27]}${_0x3b50x5}`;document[_0x3b9c[5]](_0x3b9c[28])[_0x3b9c[16]]=_0x3b50x7;document[_0x3b9c[5]](_0x3b9c[32])[_0x3b9c[30]][_0x3b9c[29]]=_0x3b9c[31]}
     </script>
 </body>
 </html>
