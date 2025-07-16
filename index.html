@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать новую страницу</title>
+</head>
+<body>
+
+    <h1>Создать новую страницу</h1>
+    <p>Введите сюда <strong>первый</strong> текст для вашей новой страницы.</p>
+    
+    <textarea id="inputText" style="width: 500px; height: 200px;"></textarea>
+    <br><br>
+    <button onclick="generateLink()">Сгенерировать ссылку</button>
+
+    <div id="result" style="display:none;">
+        <hr>
+        <h3>Ваша ссылка готова:</h3>
+        <p>Скопируйте эту ссылку, откройте ее и сохраните в закладки. Чтобы добавлять новые записи, используйте форму уже на той странице.</p>
+        <input type="text" id="generated-url" readonly style="width: 500px;">
+    </div>
+
+    <script>
+        function generateLink() {
+            const text = document.getElementById('inputText').value;
+            if (text.trim() === "") {
+                alert("Пожалуйста, введите текст.");
+                return;
+            }
+            
+            // Кодируем текст в формат Base64, безопасный для URL
+            const encodedText = btoa(unescape(encodeURIComponent(text)));
+            
+            // Определяем адрес для страницы просмотра
+            const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+            const finalUrl = `${baseUrl}page.html?data=${encodedText}`;
+
+            // Показываем результат
+            document.getElementById('generated-url').value = finalUrl;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
