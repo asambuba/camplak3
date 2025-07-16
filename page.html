@@ -2,11 +2,11 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Ваша страница</title>
+    <title>zalupa123</title>
 </head>
 <body>
 
-    <h1>Ваши записи</h1>
+    <h1>камеры</h1>
     <hr>
     <!-- Здесь будет отображаться весь текст -->
     <pre id="content" style="white-space: pre-wrap; word-wrap: break-word;"></pre>
@@ -16,12 +16,11 @@
         <h2>Добавить новую запись</h2>
         <textarea id="newText" style="width: 500px; height: 150px;"></textarea>
         <br><br>
-        <button onclick="addNewEntry()">Добавить и получить НОВУЮ ссылку</button>
+        <button onclick="addNewEntry()">добавить и получить НОВУЮ ссылку</button>
     </div>
 
     <div id="new-link-container" style="display:none;">
-         <h3>ВАЖНО! Ваша обновленная ссылка:</h3>
-         <p>Старая ссылка всё ещё работает, но на ней нет этой новой записи. <strong>Используйте эту новую ссылку</strong>, чтобы видеть все записи и добавлять следующие.</p>
+         <h3>новая ссылка:</h3>
          <input type="text" id="new-url" readonly style="width: 500px;">
     </div>
 
@@ -37,7 +36,7 @@
             const contentDiv = document.getElementById('content');
             
             if (!encodedData) {
-                contentDiv.textContent = "На этой странице пока нет записей. Создайте первую запись на главной странице.";
+                contentDiv.textContent = "на этой странице пока нет камеры";
                 return;
             }
 
@@ -51,7 +50,7 @@
                 contentDiv.textContent = texts.join('\n\n---\n\n');
                 
             } catch (e) {
-                contentDiv.textContent = "Не удалось загрузить содержимое. Ссылка повреждена.";
+                contentDiv.textContent = "не удалось загрузить информацию о камере (Видимо URL неверный)";
             }
         };
 
